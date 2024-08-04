@@ -21,9 +21,16 @@ In my Forked Clairevoyance i added some system calculation for RnD purposes.
 
 ### Clone Repository
 
+Note: 
+
  ```bash
  git clone https://github.com/RFP11/clairvoyance.git
  ```
+
+After clonning move to the directory
+```bash
+cd clairevoyance
+```
 
 ### Requirement 
 rich, iohttp, psutil
