@@ -21,7 +21,7 @@ In my Forked Clairevoyance i added some system calculation for RnD purposes.
 
 ### Clone Repository
 
-Note: 
+Note: Make sure that old clairevoyance are not in the same directory
 
  ```bash
  git clone https://github.com/RFP11/clairvoyance.git
