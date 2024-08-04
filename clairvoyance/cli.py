@@ -73,6 +73,10 @@ async def blind_introspection(
         disable_ssl_verify=disable_ssl_verify,
     )
 
+    start_time = time.time()
+    cpu_usage = []
+    initial_cpu_times = psutil.cpu_times()  
+
     logger.info(f"Starting blind introspection on {url}...")
 
     input_schema = None
@@ -91,6 +95,7 @@ async def blind_introspection(
             input_document=input_document,
             input_schema=input_schema,
         )
+        cpu_usage.append(psutil.cpu_percent())
 
         if output_path:
             with open(output_path, "w", encoding="utf-8") as f:
@@ -105,9 +110,25 @@ async def blind_introspection(
         if _next:
             input_document = s.convert_path_to_document(s.get_path_from_root(_next))
         else:
+            elapsed_time = time.time() - start_time
             break
 
+    final_cpu_times = psutil.cpu_times()
+    # calc
+    user_time = final_cpu_times.user - initial_cpu_times.user
+    system_time = final_cpu_times.system - initial_cpu_times.system
+    idle_time = final_cpu_times.idle - initial_cpu_times.idle
+    cpu_time = user_time + system_time
+
+    # logs
     logger.info("Blind introspection complete.")
+    average_cpu_usage = sum(cpu_usage) / len(cpu_usage)
+    logger.info(f"Average CPU Usage: {average_cpu_usage:.2f}%")
+    logger.info(f"Real Time:  {elapsed_time:.2f} seconds")
+    logger.info(f"User Time:  {user_time:.2f} seconds")
+    logger.info(f"System Time: {system_time:.2f} seconds")
+    logger.info(f"Idle Time:   {idle_time:.2f} seconds")
+    logger.info(f"CPU Time:   {cpu_time:.2f} seconds")
     await client().close()
     return schema
 

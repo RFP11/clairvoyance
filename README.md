@@ -13,7 +13,30 @@ Some GraphQL APIs have disabled introspection. For example, [Apollo Server disab
 
 Clairvoyance helps to obtain GraphQL API schema even if the introspection is disabled. It produces schema in JSON format suitable for other tools like [GraphQL Voyager](https://github.com/APIs-guru/graphql-voyager), [InQL](https://github.com/doyensec/inql) or [graphql-path-enum](https://gitlab.com/dee-see/graphql-path-enum).
 
+In my Forked Clairevoyance i added some system calculation for RnD purposes.
+
 ## Getting Started
+
+### My Installation
+
+### Clone Repository
+
+ ```bash
+ git clone https://github.com/RFP11/clairvoyance.git
+ ```
+
+### Requirement 
+rich, iohttp, psutil
+
+```bash
+pip install rich aiohttp psutil
+ ```
+
+ ### Example
+ ```bash
+ python3 -m clairevoyance http://localhost:3000/graphql 
+ ```
+
 
 ### pip
 
